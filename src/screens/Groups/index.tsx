@@ -5,6 +5,7 @@ import { GroupCard } from '@components/GroupCard';
 import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { ListyEmpty } from '@components/ListEmpty';
+import { Button } from '@components/Button';
 
 export function Groups() {
     const [groups, setGroups] = useState<string[]>([]);
@@ -12,6 +13,7 @@ export function Groups() {
     return (
         <Container>
             <Header />
+
             <Highlight
                 title='Turmas'
                 subtitle='Jogue com a sua turma'
@@ -25,8 +27,9 @@ export function Groups() {
                 renderItem={({ item }) => (
                     <GroupCard title={item} />
                 )}
-
             />
+
+            <Button title='Cadastrar turma' />
         </Container>
     );
 }
