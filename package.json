@@ -11,8 +11,8 @@
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.3",
     "@react-native/virtualized-lists": "^0.74.87",
-    "expo": "~51.0.28",
-    "expo-app-loading": "^2.1.1",
+    "expo": "^51.0.34",
+    "expo-app-loading": "^1.0.3",
     "expo-font": "~12.0.10",
     "expo-status-bar": "~1.12.1",
     "react": "^18.2.0",
