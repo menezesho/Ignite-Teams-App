@@ -1,11 +1,14 @@
 import styled from "styled-components/native";
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export const Container = styled.View`
     width: 100%;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    /* Remover futuramente */
+    padding-top: 20px;
 `;
 
 export const Logo = styled.Image`
@@ -17,8 +20,9 @@ export const BackButton = styled.TouchableOpacity`
     flex: 1;
 `;
 
-export const BackIcon = styled(Ionicons).attrs(({ theme }) => ({
-    name: 'chevron-back',
-    size: 32,
-    color: theme.COLORS.WHITE,
-}))``;
+export const BackIcon = styled(MaterialIcons).attrs({
+    name: 'arrow-back-ios',
+    size: 24,
+})`
+    color: ${({ theme }) => theme.COLORS.WHITE};
+`;

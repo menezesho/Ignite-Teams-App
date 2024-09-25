@@ -1,5 +1,5 @@
 import { TouchableOpacity } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import styled, { css } from "styled-components/native";
 
 export const Container = styled(TouchableOpacity)`
@@ -24,7 +24,7 @@ export const Title = styled.Text`
     `};
 `;
 
-export const Icon = styled(Feather).attrs(({ theme }) => ({
+export const Icon = styled(MaterialIcons).attrs(({ theme }) => ({
     size: 32,
     color: theme.COLORS.GREEN_700
 }))`
