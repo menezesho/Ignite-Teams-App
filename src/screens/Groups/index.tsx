@@ -27,6 +27,7 @@ export function Groups() {
                 renderItem={({ item }) => (
                     <GroupCard title={item} />
                 )}
+                showsVerticalScrollIndicator={false}
             />
 
             <Button
