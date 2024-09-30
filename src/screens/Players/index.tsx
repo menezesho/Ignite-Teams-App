@@ -8,10 +8,15 @@ import { Highlight } from "@components/Highlight";
 import { ButtonIcon } from "@components/ButtonIcon";
 import { Input } from "@components/Input";
 import { Filter } from "@components/Filter";
+import { PlayerCard } from "@components/PlayerCard";
+import { ListyEmpty } from "@components/ListEmpty";
+import { Button } from "@components/Button";
 
 export function Players() {
     const [team, setTeam] = useState('Time A');
-    const [players, setPlayers] = useState<string[]>(['Henrique']);
+    const [players, setPlayers] = useState<string[]>([
+        'João', 'Maria', 'José', 'Ana', 'Pedro', 'Carla', 'Miguel', 'Júlia', 'Lucas', 'Fernanda'
+    ]);
     return (
         <Container>
             <Header showBackButton />
@@ -34,7 +39,6 @@ export function Players() {
 
             <HeaderList>
                 <FlatList
-                    horizontal
                     data={['Time A', 'Time B']}
                     keyExtractor={item => item}
                     renderItem={({ item }) => (
@@ -44,6 +48,7 @@ export function Players() {
                             onPress={() => setTeam(item)}
                         />
                     )}
+                    horizontal
                 />
 
                 <NumberOfPlayers>
@@ -51,6 +56,32 @@ export function Players() {
                 </NumberOfPlayers>
             </HeaderList>
 
+            <FlatList
+                data={players}
+                keyExtractor={item => item}
+                renderItem={({ item }) => (
+                    <PlayerCard
+                        name={item}
+                        onRemove={() => console.log(`Removendo ${item}`)}
+                    />
+                )}
+                ListEmptyComponent={() => (
+                    <ListyEmpty
+                        message="Não há pessoas nesse time"
+                    />
+                )}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={[
+                    { paddingBottom: 100 },
+                    players.length === 0 && { flex: 1 }
+                ]}
+            />
+
+            <Button
+                title="Remover turma"
+                type="SECONDARY"
+                onPress={() => console.log('Removendo turma')}
+            />
         </Container>
     );
 }

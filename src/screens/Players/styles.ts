@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from "styled-components/native";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
@@ -28,6 +28,6 @@ export const NumberOfPlayers = styled.Text`
     ${({ theme }) => css`
         color: ${theme.COLORS.GRAY_200};
         font-family: ${theme.FONT_FAMILY.BOLD};
-        font-size: ${theme.FONT_SIZE.SM};
+        font-size: ${theme.FONT_SIZE.SM}px;
     `};
 `;
