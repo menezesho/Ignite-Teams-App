@@ -27,12 +27,15 @@ export function Groups() {
         }
     }
 
+    function handleOpenGroup(group: string) {
+        navigation.navigate('players', { group });
+    }
+
     function handleNewGroup() {
         navigation.navigate('new');
     }
 
     useFocusEffect(useCallback(() => {
-        console.log('fetching groups');
         fetchGroups();
     }, []));
 
@@ -51,7 +54,10 @@ export function Groups() {
                 contentContainerStyle={groups.length === 0 && { flex: 1 }}
                 ListEmptyComponent={() => <ListyEmpty message='Que tal criar a primeira turma?' />}
                 renderItem={({ item }) => (
-                    <GroupCard title={item} />
+                    <GroupCard
+                        title={item}
+                        onPress={() => handleOpenGroup(item)}
+                    />
                 )}
                 showsVerticalScrollIndicator={false}
             />
