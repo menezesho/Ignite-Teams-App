@@ -8,6 +8,8 @@ import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { Highlight } from "@components/Highlight";
 import { groupCreate } from "@storage/group/groupCreate";
+import { AppError } from "@utils/AppError";
+import { Alert } from "react-native";
 
 export function NewGroup() {
     const [group, setGroup] = useState('');
@@ -15,9 +17,18 @@ export function NewGroup() {
 
     async function handleNewGroup() {
         try {
-            await groupCreate(group);
+            if (group.trim().length === 0) {
+                Alert.alert('Nova turma', 'Informe o nome da turma');
+                return;
+            }
+            await groupCreate(group.trim());
             navigation.navigate('players', { group });
         } catch (error) {
+            if (error instanceof AppError) {
+                Alert.alert('Nova turma', error.message);
+                return;
+            }
+            Alert.alert('Nova turma', 'Não foi possível criar a turma');
             console.log(error);
         }
     }
