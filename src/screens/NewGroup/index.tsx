@@ -1,24 +1,28 @@
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+
+import { Center, Container, Icon } from "./styles";
+
 import { Header } from "@components/Header";
-import { Center, Container } from "./style";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { Highlight } from "@components/Highlight";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useTheme } from "styled-components/native";
 
 export function NewGroup() {
-    const { COLORS } = useTheme();
+    const [group, setGroup] = useState('');
+    const navigation = useNavigation();
+
+    function handleNewGroup() {
+        navigation.navigate('players', { group });
+    }
 
     return (
         <Container>
             <Header showBackButton />
 
             <Center>
-                <MaterialIcons
-                    name="groups"
-                    color={COLORS.GREEN_500}
-                    size={60}
-                    alignSelf='center'
+                <Icon
+                    name='groups'
                 />
 
                 <Highlight
@@ -28,11 +32,13 @@ export function NewGroup() {
 
                 <Input
                     placeholder='Nome da turma'
+                    onChangeText={setGroup}
                 />
 
                 <Button
                     title='Criar'
                     style={{ marginTop: 20 }}
+                    onPress={handleNewGroup}
                 />
             </Center>
         </Container>
