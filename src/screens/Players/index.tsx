@@ -1,6 +1,6 @@
 import { Alert, FlatList, type TextInput } from "react-native";
 import { useEffect, useRef, useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
 
@@ -20,6 +20,7 @@ import { playersGetByGroupAndTeam } from "@storage/player/playersGetByGroupAndTe
 
 import { AppError } from "@utils/AppError";
 import { playerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
+import { groupRemoveByName } from "@storage/group/groupRemoveByName";
 
 type RouteParams = {
     group: string;
@@ -27,6 +28,7 @@ type RouteParams = {
 
 export function Players() {
     const route = useRoute();
+    const navigation = useNavigation();
     const newPlayerNameRef = useRef<TextInput>(null);
 
     const { group } = route.params as RouteParams;
@@ -80,17 +82,31 @@ export function Players() {
     }
 
     async function handleRemovePlayer(playerName: string) {
-        Alert.alert('Remover pessoa', `Deseja remover ${playerName} da lista?`, [
-            {
-                text: 'Sim',
-                onPress: async () => removePlayer(playerName)
-            },
-            {
-                text: 'Não',
-            }
-        ],
-            { cancelable: true }
-        );
+        Alert.alert(
+            'Remover pessoa',
+            `Deseja remover ${playerName} da lista?`, [
+            { text: 'Sim', onPress: async () => removePlayer(playerName) },
+            { text: 'Não', style: 'cancel' },
+        ], { cancelable: true });
+    }
+
+    async function removeGroup() {
+        try {
+            await groupRemoveByName(group);
+            navigation.navigate('groups');
+        } catch (error) {
+            Alert.alert('Remover turma', 'Não foi possível remover a turma.');
+            console.log(error);
+        }
+    }
+
+    async function handleRemoveGroup() {
+        Alert.alert(
+            'Remover turma',
+            `Deseja remover a turma ${group}?`, [
+            { text: 'Sim', onPress: removeGroup },
+            { text: 'Não', style: 'cancel' },
+        ], { cancelable: true });
     }
 
     useEffect(() => {
@@ -167,7 +183,7 @@ export function Players() {
             <Button
                 title="Remover turma"
                 type="SECONDARY"
-                onPress={() => console.log('Removendo turma')}
+                onPress={handleRemoveGroup}
             />
         </Container>
     );
